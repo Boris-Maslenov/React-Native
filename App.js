@@ -1,13 +1,52 @@
-import {useState} from 'react';
+import {useState, useEffect, useCallback} from 'react';
+import AppLoading from 'expo-app-loading';
+import * as SplashScreen from 'expo-splash-screen';
+import * as Font from 'expo-font';
+
 import { StyleSheet, View, Vibration, Alert} from 'react-native';
 import { Navbar } from './src/components/Navbar';
 import MainScreen from './src/screens/MainScreen';
 import TodoScreen from './src/screens/TodoScreen';
 
-export default function App() {
 
+
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync();
+
+export default function App() {
+  const [isReady, setIsReady] = useState(false);
   const [todos, setTodos] = useState([]);
   const [todoId, setTodoId] = useState(null);
+
+  // if(!isReady){
+  //   return <SplashScreen startAsync={loadApplication}  onError={()=>console.log()}  onFinish={() => setIsReady(true)}/>
+  // }
+
+  useEffect(()=>{
+    async function loadApplication(){
+      try{
+        await Font.loadAsync({
+          'roboto-regular' : require('./assets/fonts/Roboto-Regular.ttf'),
+          'roboto-bold' : require('./assets/fonts/Roboto-Bold.ttf')
+        })
+      }catch(e){
+        console.log(e);
+      }finally{
+        setIsReady(true)
+      }
+    }
+    loadApplication();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (isReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [isReady]);
+
+  if (!isReady) {
+    return null;
+  }
 
   const addTodo = (title) => {
       const newTodo = {
@@ -50,7 +89,7 @@ export default function App() {
      }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onLayout={onLayoutRootView}>
       <Navbar />
       <View>
         {content}

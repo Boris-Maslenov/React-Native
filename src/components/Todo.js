@@ -9,7 +9,7 @@ export function Todo({id, title, onRemove, openTodo}){
     return (
         <TouchableOpacity activeOpacity={0.5} onPress={() => openTodo(id)} onLongPress={longPressHandler}>
             <View style={styles.todo}>
-                <Text>{title}</Text>
+                <Text style={styles.title}>{title}</Text>
             </View>    
         </TouchableOpacity>
     );
@@ -25,5 +25,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#eee',
     borderRadius: 5,
-  }  
+  } 
 })
