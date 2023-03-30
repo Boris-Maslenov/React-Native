@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Vibration, Alert } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 export function AddToDo({onSubmit}){
 
@@ -17,7 +18,8 @@ export function AddToDo({onSubmit}){
     return (
         <View style={styles.block}>
             <TextInput autoCapitalize='none' autoCorrect={false} placeholder='Enter todo' value={value} onChangeText={setValue} style={styles.input} />
-            <Button style={styles.button} title="add" onPress={pressHandler} />
+            {/* <Button style={styles.button} title="add" onPress={pressHandler} /> */}
+            <AntDesign.Button name={'pluscircleo'} onPress={pressHandler}>add</AntDesign.Button>
         </View>
     );
 }
