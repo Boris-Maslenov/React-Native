@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
         height: 100,
         alignItems: 'center',
         justifyContent: 'flex-end',
- 
         paddingBottom: 20,
     },
     navbarAndroid: {
