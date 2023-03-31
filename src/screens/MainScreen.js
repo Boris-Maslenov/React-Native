@@ -1,11 +1,28 @@
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import {useState, useEffect} from 'react';
+import { StyleSheet, Text, View, ScrollView, Image, Dimensions } from 'react-native';
 import { AddToDo } from '../components/AddToDo';
 import { Todo } from '../components/Todo';
 
+
+
 export default function MainScreen({addTodo, todos, removeTodo, openTodo}){
-    let content = <ScrollView>
-                    {todos.map( (todo) => <Todo key={todo.id} openTodo={openTodo}  onRemove={removeTodo} id={todo.id} title={todo.title}/> ).reverse()}
-                  </ScrollView>;
+  const [deviceWidth, setDeviceWidth] = useState( Dimensions.get('window').width - 30 );
+
+useEffect(() => {
+  const update = () => {
+    const width = Dimensions.get('window').width - 30;
+    setDeviceWidth(width);
+  }
+  const subscribe = Dimensions.addEventListener('change', update);
+  return () =>  subscribe?.remove();
+}, []);
+
+
+    let content = <View style={{width: deviceWidth}}>
+                      <ScrollView >
+                        {todos.map( (todo) => <Todo key={todo.id} openTodo={openTodo}  onRemove={removeTodo} id={todo.id} title={todo.title}/> ).reverse()}
+                      </ScrollView>
+                  </View>;
         if(!todos.length){
             content = <View style={styles.imageWrap}>
                          <Image style={styles.image} source={require('../../assets/no-items.png')} />
