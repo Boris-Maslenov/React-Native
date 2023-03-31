@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Vibration, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Vibration, Alert, Keyboard } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 export function AddToDo({onSubmit}){
@@ -14,6 +14,7 @@ export function AddToDo({onSubmit}){
         onSubmit(value);
         setValue('');
         Vibration.vibrate(80);
+        Keyboard.dismiss();
     }
     return (
         <View style={styles.block}>
