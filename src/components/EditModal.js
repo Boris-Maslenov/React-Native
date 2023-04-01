@@ -11,12 +11,16 @@ export const EditModal = ({visible, onCancel, value, onSave}) => {
             onSave(title);
         }
     }
+    const onCanceHandler = () => {
+        setTitle(value);
+        onCancel(); 
+    }
     return (
         <Modal visible={visible} animationType={'slide'}  transparent={false}>
             <View style={styles.wrap}>
                 <TextInput style={styles.input} onChangeText={setTitle} value={title}  placeholder={'введите что-нибудь'}   autoCapitalize={'none'} autoCorrect={false} />
                 <View style={styles.buttons}>
-                    <Button title="Отмена" onPress={onCancel} color={THEME.DANGER_COLOR}></Button>
+                    <Button title="Отмена" onPress={onCanceHandler} color={THEME.DANGER_COLOR}></Button>
                     <Button title="Сохранить" onPress={saveHandler}></Button>
                 </View>              
             </View>

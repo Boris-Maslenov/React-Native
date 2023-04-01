@@ -1,13 +1,15 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, Dimensions } from 'react-native';
 import { AddToDo } from '../components/AddToDo';
 import { Todo } from '../components/Todo';
+import { TodoContext } from '../context/todo/todoContext';
+import { ScreenContext } from '../context/screen/screenContext';
 
 
-
-export default function MainScreen({addTodo, todos, removeTodo, openTodo}){
+export function MainScreen(){
   const [deviceWidth, setDeviceWidth] = useState( Dimensions.get('window').width - 30 );
-
+  const {addTodo, todos, removeTodo} = useContext(TodoContext);
+  const {changeScreen} = useContext(ScreenContext);
 useEffect(() => {
   const update = () => {
     const width = Dimensions.get('window').width - 30;
@@ -20,7 +22,7 @@ useEffect(() => {
 
     let content = <View style={{width: deviceWidth}}>
                       <ScrollView >
-                        {todos.map( (todo) => <Todo key={todo.id} openTodo={openTodo}  onRemove={removeTodo} id={todo.id} title={todo.title}/> ).reverse()}
+                        {todos.map( (todo) => <Todo key={todo.id} openTodo={changeScreen}  onRemove={removeTodo} id={todo.id} title={todo.title}/> ).reverse()}
                       </ScrollView>
                   </View>;
         if(!todos.length){
