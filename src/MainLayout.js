@@ -9,9 +9,9 @@ export const MainLayout = () => {
     const {todoId} = useContext(ScreenContext);
     const content = todoId ?  <TodoScreen /> : <MainScreen />
     return(
-        <View style={styles.container}>
+        <View style={styles.wrapper}>
               <Navbar /> 
-              <View >
+              <View style={styles.wrapper}>
                   {content} 
               </View>
         </View>
@@ -19,5 +19,7 @@ export const MainLayout = () => {
 }
 
 const styles = StyleSheet.create({
-    container: {},
+    wrapper: {
+        flex: 1,
+    }
 });

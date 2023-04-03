@@ -6,7 +6,6 @@ import { TodoState } from './src/context/todo/TodoState';
 import { ScreenState } from './src/context/screen/ScreenState';
 import { View } from 'react-native';
 
-
 SplashScreen.preventAutoHideAsync();
     export default function App() {
     const [isReady, setIsReady] = useState(false);
@@ -35,7 +34,7 @@ SplashScreen.preventAutoHideAsync();
     if (!isReady) {return null}
 
     return (
-      <View  onLayout={onLayoutRootView}>
+      <View style={{flex: 1}}  onLayout={onLayoutRootView}>
         <ScreenState>
             <TodoState>
               <MainLayout /> 
